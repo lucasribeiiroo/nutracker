@@ -1,4 +1,6 @@
 import { Button } from "antd";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 import Image from "next/image";
 
 const Header = () => {
@@ -7,19 +9,30 @@ const Header = () => {
       <Image
         className="flex items-center w-a ml-6"
         src="/nutracker-logo.png"
-        width={120}
+        width={140}
         height={40}
         alt="nutracker_logo"
       />
 
-      <Button
-        className="m-6 float-right"
-        color="default"
-        variant="solid"
-        size="large"
-      >
-        Sign In
-      </Button>
+      <div className="m-6 float-right">
+        <SignedOut>
+          <SignInButton forceRedirectUrl={"/dashboard"}>
+            <Button color="default" variant="solid" size="large">
+              Login
+            </Button>
+          </SignInButton>
+        </SignedOut>
+        <SignedIn>
+          <UserButton
+            appearance={{
+              baseTheme: dark,
+              elements: {
+                avatarBox: "w-10 h-10",
+              },
+            }}
+          />
+        </SignedIn>
+      </div>
     </nav>
   );
 };
