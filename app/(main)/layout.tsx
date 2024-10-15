@@ -2,14 +2,24 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import {
+  StarOutlined,
+  LineChartOutlined,
+  SnippetsOutlined,
+  CalendarOutlined,
+} from "@ant-design/icons";
 
 import { useUser } from "@clerk/nextjs";
 
 const navItems = [
-  { href: "/dashboard", label: "Dashboard", icon: "y" },
-  { href: "/favoritos", label: "Favoritos", icon: "y" },
-  { href: "/planos", label: "Planos", icon: "y" },
-  { href: "/organizacao", label: "Organizar", icon: "y" },
+  {
+    href: "/dashboard",
+    label: "Dashboard",
+    icon: LineChartOutlined,
+  },
+  { href: "/favoritos", label: "Favoritos", icon: StarOutlined },
+  { href: "/planos", label: "Planos", icon: SnippetsOutlined },
+  { href: "/organizacao", label: "Organizar", icon: CalendarOutlined },
 ];
 
 export default function AppLayout({ children }: any) {
@@ -18,7 +28,7 @@ export default function AppLayout({ children }: any) {
 
   return (
     <>
-      <div className="flex flex-col h-screen bg-green-50 md:flex-row">
+      <div className="flex flex-col h-screen bg-white md:flex-row">
         {/* Sidebar for medium screens and up */}
         <aside className="hidden md:block w-64 bg-gradient-to-b from-green-800  to-white ">
           <nav className="mt-10">
@@ -31,7 +41,7 @@ export default function AppLayout({ children }: any) {
                       pathname === item.href ? "bg-black" : ""
                     }`}
                   >
-                    <item.icon className="w-5 h-5 mr-3" />
+                    <item.icon className="mr-2" />
                     {item.label}
                   </Link>
                 </li>
@@ -43,7 +53,7 @@ export default function AppLayout({ children }: any) {
         {/* Main content */}
         <main className="flex-1 overflow-y-auto p-4 md:p-8">
           <header className="flex justify-between items-center mb-4">
-            <h2 className="text-5xl md:text-6xl gradient-title pt-2 md:pt-0 text-center md:text-left w-full">
+            <h2 className="text-4xl font-mono md:text-6xl gradient-title pt-2 md:pt-0 text-center md:text-left w-full text-slate-600">
               {navItems.find((item) => item.href === pathname)?.label ||
                 "Dashboard"}
             </h2>
@@ -62,8 +72,8 @@ export default function AppLayout({ children }: any) {
                     pathname === item.href ? "text-green-600" : "text-white"
                   }`}
                 >
-                  <item.icon className="w-6 h-6" />
-                  <span className="text-xs mt-1">{item.label}</span>
+                  <item.icon className="mr-2" />
+                  <span className="text-xs mt-1 ">{item.label}</span>
                 </Link>
               </li>
             ))}
