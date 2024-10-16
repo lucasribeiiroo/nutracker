@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id String @id @default(uuid())
+  username String @unique
+  favorites Food[]
+  userPlans Plan[] @relation("UserPlans")
+  userPlanners Planner[] @relation("UserPlanners")
+}
+
+model Food{
+  id String @id @default(uuid())
+  name String @unique
+  kcal Int
+  fats Int
+  proteins Int 
+  carbo Int
+  grams Int
+  plan Plan[]
+  user User[]
+}
+
+model Plan{
+  id String @id @default(uuid())
+  name String @unique
+  userId String 
+  user User @relation("UserPlans", fields: [userId], references: [id])
+  foods Food [] 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  day DayOfWeek[]
+  planner Planner[]
+}
+
+model Planner {
+ id String @id @default(uuid())
+ name String @unique
+ plans Plan[]
+ startAt DateTime
+ endTime DateTime
+ userId String 
+ User User @relation("UserPlanners", fields: [userId], references: [id])
+}
+
+enum DayOfWeek {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}

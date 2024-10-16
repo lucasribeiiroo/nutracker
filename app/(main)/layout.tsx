@@ -52,7 +52,7 @@ export default function AppLayout({ children }: any) {
 
         {/* Main content */}
         <main className="flex-1 overflow-y-auto p-4 md:p-8">
-          <header className="flex justify-between items-center mb-4">
+          <header className="flex p-6 justify-between items-center mb-4 bg-gray-100 rounded-md shadow-xl">
             <h2 className="text-4xl font-mono md:text-6xl gradient-title pt-2 md:pt-0 text-center md:text-left w-full text-slate-600">
               {navItems.find((item) => item.href === pathname)?.label ||
                 "Dashboard"}

@@ -1,12 +1,13 @@
 "use client";
 
 import { DashboardOutlined, FireOutlined } from "@ant-design/icons";
+import { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 
-const chart = {
+const rchart: any = {
   series: [44, 55, 13],
   options: {
-    labels: ["Carboidrato", "Proteína", "Gorduras"],
+    labels: ["Carboidratos", "Proteínas", "Gorduras"],
     responsive: [
       {
         breakpoint: 0,
@@ -26,6 +27,22 @@ const chart = {
 // Conversões de gramas para kilos
 
 const Dashboard = () => {
+  const [chart, setChart] = useState<any>({});
+
+  const handleData = async () => {
+    fetch("https://dog.ceo/api/breeds/image/random")
+      .then((response) => console.log(response.json))
+      .then((data) => {
+        console.log("-----");
+        console.log(data);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  useEffect(() => {
+    handleData();
+  }, []);
+
   return (
     <div className="text-slate-600">
       <div className="flex justify-between mt-10 font-jm text-2xl p-2">
@@ -39,14 +56,12 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="mt-10 ml-40 flex justify-center">
-        <div className="flex">
-          <Chart
-            options={chart.options}
-            series={chart.series}
-            type="pie"
-            width={450}
-          />
-        </div>
+        <Chart
+          options={rchart.options}
+          series={rchart.series}
+          type="pie"
+          width={450}
+        />
       </div>
     </div>
   );
